@@ -23,7 +23,7 @@ export function remove(id) {
 }
 
 export const loadProducts = () => dispatch => {
-  let url = "http://www.mocky.io/v2/5c3e15e63500006e003e9795";
+  let url = "https://www.mocky.io/v2/5c3e15e63500006e003e9795";
   return new Promise((resolve, reject) => {
     axios
       .get(url)
