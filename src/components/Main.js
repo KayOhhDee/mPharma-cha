@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { loadProducts, addProduct } from "../redux/actions/products";
 import AddForm from "./AddForm";
+import EditForm from "./EditForm";
 
 class Main extends Component {
   state = {
     addmodal: false,
+    editmodal: false,
     rowSelect: null,
     selectedRow: [],
     disablebtn: true
@@ -40,6 +42,12 @@ class Main extends Component {
   addtoggle = () => {
     this.setState(prevState => ({
       addmodal: !prevState.addmodal
+    }));
+  };
+
+  edittoggle = () => {
+    this.setState(prevState => ({
+      editmodal: !prevState.editmodal,
     }));
   };
 
@@ -93,6 +101,7 @@ class Main extends Component {
               style={{ backgroundColor: "#ffbb33" }}
               className="button"
               disabled={this.state.disablebtn}
+              onClick={this.edittoggle}
             >
               Edit
             </button>
@@ -127,6 +136,15 @@ class Main extends Component {
           toggle={this.addtoggle}
           addProduct={this.props.addProduct}
         />
+        {this.state.editmodal && (
+          <EditForm
+            modalState={this.state.editmodal}
+            toggle={this.edittoggle}
+            selectedRow={this.state.selectedRow}
+            getLatestDate={this.getLatestDate}
+            editProduct={this.props.editProduct}
+          />
+        )}
       </div>
     );
   }
