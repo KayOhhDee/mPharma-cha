@@ -37,3 +37,15 @@ code {
   color: black;
   font-weight: 500;
 }
+
+/* Head text */
+
+.head-text {
+  display: flex;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #3E4551;
+}
