@@ -53,10 +53,10 @@ class Main extends Component {
     }));
   };
 
-  deletetoggle = () => {
+  deletetoggle = (condition) => {
     this.setState(prevState => ({
       deletemodal: !prevState.deletemodal,
-      disablebtn: true
+      disablebtn: condition ? true : false
     }));
   };
 

@@ -4,7 +4,7 @@ const DeleteModal = (props) => {
   
   const handleDelete = () => {
     props.deleteProduct(props.selectedRow.id);
-    props.toggle();
+    props.toggle(true);
   };
 
   return (
@@ -13,7 +13,7 @@ const DeleteModal = (props) => {
         <div className="modal">
           <div className="modal-content">
             <div style={{backgroundColor:"#FF3547", marginBottom:"0"}} className="modal-header">
-              <span onClick={props.toggle} className="close">&times;</span>
+              <span onClick={e => props.toggle(false)} className="close">&times;</span>
               <h2>DELETE</h2>
             </div>
             <div className="modal-body">
@@ -23,7 +23,7 @@ const DeleteModal = (props) => {
               <button onClick={handleDelete} style={{backgroundColor:"#ff3547"}} className="delete-options">
                 Yes
               </button>
-              <button onClick={props.toggle} style={{backgroundColor:"#444551"}} className="delete-options">
+              <button onClick={e => props.toggle(false)} style={{backgroundColor:"#444551"}} className="delete-options">
                 No
               </button>
             </div>
