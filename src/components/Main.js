@@ -1,6 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { loadProducts } from "../redux/actions/products";
 
 class Main extends Component {
+
+  componentDidMount() {
+    this.props.loadProducts();
+  }
+
   render() {
     return (
       <div>
@@ -9,26 +16,17 @@ class Main extends Component {
         </div>
         <div className="button-container">
           <div className="button-container-sub">
-            <button
-              style={{ backgroundColor: "#ffbb33" }}
-              className="button"
-            >
+            <button style={{ backgroundColor: "#ffbb33" }} className="button">
               Add
             </button>
           </div>
           <div className="button-container-sub">
-            <button
-              style={{ backgroundColor: "#ffbb33" }}
-              className="button"
-            >
+            <button style={{ backgroundColor: "#ffbb33" }} className="button">
               Edit
             </button>
           </div>
           <div className="button-container-sub">
-            <button
-              style={{ backgroundColor: "#FF3547" }}
-              className="button"
-            >
+            <button style={{ backgroundColor: "#FF3547" }} className="button">
               Delete
             </button>
           </div>
@@ -53,4 +51,11 @@ class Main extends Component {
   }
 }
 
-export default Main
+const mapStateToProps = state => ({
+  products: state.products.products
+});
+
+export default connect(
+  mapStateToProps,
+  { loadProducts }
+)(Main);
