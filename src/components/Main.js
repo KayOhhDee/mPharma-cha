@@ -33,6 +33,21 @@ class Main extends Component {
             </button>
           </div>
         </div>
+        <div>
+          <div className="table-row">
+            <div className="table-row-col">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
