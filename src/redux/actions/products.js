@@ -1,4 +1,4 @@
-import { LOAD_PRODUCTS, ADD_PRODUCT } from "../actionTypes";
+import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT } from "../actionTypes";
 import axios from "axios";
 
 export function products(items) {
@@ -13,6 +13,13 @@ export function add(item) {
     type: ADD_PRODUCT,
     item
   };
+}
+
+export function remove(id) {
+  return {
+    type: REMOVE_PRODUCT,
+    id
+  }
 }
 
 export const loadProducts = () => dispatch => {
@@ -67,4 +74,15 @@ export const editProduct = (name, price, id) => dispatch => {
   localStorage.setItem("products", JSON.stringify(items));
 
   dispatch(products(JSON.parse(localStorage.getItem("products"))));
+};
+
+export const deleteProduct = id => dispatch => {
+  let items = JSON.parse(localStorage.getItem("products"));
+  let foundProduct = items[id - 1];
+
+  delete foundProduct.name;
+  items[id - 1] = foundProduct;
+  localStorage.setItem("products", JSON.stringify(items));
+
+  dispatch(remove(id));
 };

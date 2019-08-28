@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { loadProducts, addProduct, editProduct } from "../redux/actions/products";
+import { loadProducts, addProduct, editProduct, deleteProduct } from "../redux/actions/products";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import DeleteModal from "./DeleteModal";
@@ -181,5 +181,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loadProducts, addProduct, editProduct }
+  { loadProducts, addProduct, editProduct, deleteProduct }
 )(Main);

@@ -2,6 +2,11 @@ import React from 'react';
 
 const DeleteModal = (props) => {
   
+  const handleDelete = () => {
+    props.deleteProduct(props.selectedRow.id);
+    props.toggle();
+  };
+
   return (
     <div>
       {props.modalState && (
@@ -15,7 +20,7 @@ const DeleteModal = (props) => {
               <p className="warn-words">Are you sure to delete selected row?</p>
             </div>
             <div className="delete-btns">
-              <button style={{backgroundColor:"#ff3547"}} className="delete-options">
+              <button onClick={handleDelete} style={{backgroundColor:"#ff3547"}} className="delete-options">
                 Yes
               </button>
               <button onClick={props.toggle} style={{backgroundColor:"#444551"}} className="delete-options">
