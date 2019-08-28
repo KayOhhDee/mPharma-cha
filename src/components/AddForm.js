@@ -12,6 +12,15 @@ class AddForm extends Component {
     });
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.addProduct(this.state.name, this.state.price);
+    this.setState({
+      name: '', price: ''
+    })
+    this.props.toggle();
+  }
+
   render() {
     const {name, price} = this.state;
 
@@ -27,7 +36,7 @@ class AddForm extends Component {
                 <h2>ADD NEW DRUG</h2>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={this.handleSubmit}>
                   <label htmlFor="fname">Name:</label>
                   <input
                     type="text"
@@ -35,7 +44,7 @@ class AddForm extends Component {
                     name="name"
                     placeholder="Name of drug.."
                     onChange={this.handleChange}
-                    value = {name}
+                    value={name}
                     required
                   />
 
