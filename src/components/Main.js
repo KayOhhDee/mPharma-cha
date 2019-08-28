@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import { loadProducts, addProduct, editProduct } from "../redux/actions/products";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
+import DeleteModal from "./DeleteModal";
 
 class Main extends Component {
   state = {
     addmodal: false,
     editmodal: false,
+    deletemodal: false,
     rowSelect: null,
     selectedRow: [],
     disablebtn: true
@@ -47,13 +49,20 @@ class Main extends Component {
 
   edittoggle = () => {
     this.setState(prevState => ({
-      editmodal: !prevState.editmodal,
+      editmodal: !prevState.editmodal
+    }));
+  };
+
+  deletetoggle = () => {
+    this.setState(prevState => ({
+      deletemodal: !prevState.deletemodal,
+      disablebtn: true
     }));
   };
 
   handleSelect = (item, event) => {
-    if(item && event.currentTarget) {
-      if((item.id - 1) !== this.state.rowSelect) {
+    if (item && event.currentTarget) {
+      if (item.id - 1 !== this.state.rowSelect) {
         this.setState({
           rowSelect: item.id - 1,
           selectedRow: item,
@@ -63,7 +72,7 @@ class Main extends Component {
         this.setState({
           rowSelect: null,
           disablebtn: true
-        })
+        });
       }
     } else {
       return;
@@ -71,15 +80,22 @@ class Main extends Component {
   };
 
   render() {
-    const list = this.props.products.map(item => (
-      item.name && <tr 
-        style={{backgroundColor: (item.id - 1) === this.state.rowSelect ? "#a4d4ff" : ""}} 
-        onClick={this.handleSelect.bind(this, item)} key={item.id}
-      >
-        <td>{item.name}</td>
-        <td>{this.getLatestDate(item)}</td>
-      </tr>
-    ));
+    const list = this.props.products.map(
+      item =>
+        item.name && (
+          <tr
+            style={{
+              backgroundColor:
+                item.id - 1 === this.state.rowSelect ? "#a4d4ff" : ""
+            }}
+            onClick={this.handleSelect.bind(this, item)}
+            key={item.id}
+          >
+            <td>{item.name}</td>
+            <td>{this.getLatestDate(item)}</td>
+          </tr>
+        )
+    );
 
     return (
       <div>
@@ -111,6 +127,7 @@ class Main extends Component {
               style={{ backgroundColor: "#FF3547" }}
               className="button"
               disabled={this.state.disablebtn}
+              onClick={this.deletetoggle}
             >
               Delete
             </button>
@@ -143,6 +160,14 @@ class Main extends Component {
             selectedRow={this.state.selectedRow}
             getLatestDate={this.getLatestDate}
             editProduct={this.props.editProduct}
+          />
+        )}
+        {this.state.deletemodal && (
+          <DeleteModal
+            modalState={this.state.deletemodal}
+            toggle={this.deletetoggle}
+            selectedRow={this.state.selectedRow}
+            deleteProduct={this.props.deleteProduct}
           />
         )}
       </div>
