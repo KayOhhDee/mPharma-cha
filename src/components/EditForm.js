@@ -27,6 +27,13 @@ class EditForm extends Component {
     });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const {name, price} = this.state;
+    this.props.editProduct(name, price, this.props.selectedRow.id);
+    this.props.toggle();
+  }
+
   render() {
    
     return (
@@ -41,7 +48,7 @@ class EditForm extends Component {
                 <h2>EDIT DRUG</h2>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={this.handleSubmit}>
                   <label htmlFor="fname">Name:</label>
                   <input
                     type="text"

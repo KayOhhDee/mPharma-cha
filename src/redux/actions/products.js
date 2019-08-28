@@ -49,3 +49,22 @@ export const addProduct = (name, price) => dispatch => {
   localStorage.setItem("products", JSON.stringify(modifiedItems));
   dispatch(add(newItems));
 };
+
+export const editProduct = (name, price, id) => dispatch => {
+  let items = JSON.parse(localStorage.getItem("products"));
+  let foundProduct = items[id - 1];
+  let priceId = [...items][items.length - 1].prices[
+    [...items][items.length - 1].prices.length - 1
+  ].id;
+
+  foundProduct.name = name;
+  foundProduct.prices = [
+    ...foundProduct.prices,
+    { id: ++priceId, price: price, date: Date.now() }
+  ];
+
+  items[id - 1] = foundProduct;
+  localStorage.setItem("products", JSON.stringify(items));
+
+  dispatch(products(JSON.parse(localStorage.getItem("products"))));
+};
