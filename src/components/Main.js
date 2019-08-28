@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { loadProducts } from "../redux/actions/products";
+import AddForm from "./AddForm";
 
 class Main extends Component {
   state = {
+    addmodal: false,
     rowSelect: null,
     selectedRow: [],
     disablebtn: true
@@ -34,6 +36,12 @@ class Main extends Component {
 
     return pricesArr[pricesArr.length - 1].price;
   }
+
+  addtoggle = () => {
+    this.setState(prevState => ({
+      addmodal: !prevState.addmodal
+    }));
+  };
 
   handleSelect = (item, event) => {
     if(item && event.currentTarget) {
@@ -68,11 +76,15 @@ class Main extends Component {
     return (
       <div>
         <div className="head-text">
-          <p>No row selected</p>
+          <p>{`${!this.state.disablebtn ? "1" : "No"} row selected`}</p>
         </div>
         <div className="button-container">
           <div className="button-container-sub">
-            <button style={{ backgroundColor: "#ffbb33" }} className="button">
+            <button
+              style={{ backgroundColor: "#ffbb33" }}
+              className="button"
+              onClick={this.addtoggle}
+            >
               Add
             </button>
           </div>
@@ -110,6 +122,7 @@ class Main extends Component {
             </div>
           </div>
         </div>
+        <AddForm modalState={this.state.addmodal} toggle={this.addtoggle} />
       </div>
     );
   }
