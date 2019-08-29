@@ -42,7 +42,7 @@ export const loadProducts = () => dispatch => {
 
 export const addProduct = (name, price) => dispatch => {
   let items = JSON.parse(localStorage.getItem("products"));
-  let id = [...items][items.length - 1].id;
+  let id = [...items].length;
   let priceId = [...items][items.length - 1].prices[
     [...items][items.length - 1].prices.length - 1
   ].id;
@@ -80,7 +80,7 @@ export const deleteProduct = id => dispatch => {
   let items = JSON.parse(localStorage.getItem("products"));
   let foundProduct = items[id - 1];
 
-  delete foundProduct.name;
+  delete foundProduct.id;
   items[id - 1] = foundProduct;
   localStorage.setItem("products", JSON.stringify(items));
 

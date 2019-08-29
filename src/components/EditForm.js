@@ -8,7 +8,7 @@ class EditForm extends Component {
 
   componentDidMount() {
      const name = this.props.selectedRow.name;
-     if (this.props.selectedRow.name !== undefined) {
+     if (this.props.selectedRow.id !== undefined) {
        var price = this.props.getLatestDate(this.props.selectedRow);
      }
      this.editPreset(name, price)

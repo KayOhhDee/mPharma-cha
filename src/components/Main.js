@@ -82,7 +82,7 @@ class Main extends Component {
   render() {
     const list = this.props.products.map(
       item =>
-        item.name && (
+        item.id && (
           <tr
             style={{
               backgroundColor:
