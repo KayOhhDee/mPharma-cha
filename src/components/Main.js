@@ -73,6 +73,10 @@ class Main extends Component {
         )
     );
 
+    const selectedRow = this.props.products.find(
+      item => this.state.rowSelected === item.id
+    );
+
     return (
       <div>
         <div className="head-text">
@@ -133,7 +137,7 @@ class Main extends Component {
           <EditForm
             modalState={this.state.editModal}
             toggle={this.edittoggle}
-            selectedRow={this.state.selectedRow}
+            selectedRow={selectedRow}
             getLatestDate={this.getLatestDate}
             editProduct={this.props.editProduct}
           />
@@ -142,7 +146,7 @@ class Main extends Component {
           <DeleteModal
             modalState={this.state.deleteModal}
             toggle={this.deletetoggle}
-            selectedRow={this.state.selectedRow}
+            selectedRow={selectedRow}
             deleteProduct={this.props.deleteProduct}
           />
         )}
