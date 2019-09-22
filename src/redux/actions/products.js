@@ -48,23 +48,6 @@ export const loadProducts = () => async dispatch => {
   }
 };
 
-export const addProduct = (name, price) => dispatch => {
-  let items = JSON.parse(localStorage.getItem("products"));
-  let id = [...items].length;
-  let priceId = [...items][items.length - 1].prices[
-    [...items][items.length - 1].prices.length - 1
-  ].id;
-
-  let newItems = {
-    id: ++id,
-    name: name,
-    prices: [{ id: ++priceId, price: price, date: Date.now() }]
-  };
-  let modifiedItems = [...items, newItems];
-  localStorage.setItem("products", JSON.stringify(modifiedItems));
-  dispatch(add(newItems));
-};
-
 export const editProduct = (name, price, id) => dispatch => {
   let items = JSON.parse(localStorage.getItem("products"));
   let foundProduct = items[id - 1];

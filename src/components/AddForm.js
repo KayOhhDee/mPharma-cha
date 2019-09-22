@@ -14,7 +14,8 @@ class AddForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addProduct(this.state.name, this.state.price);
+    const {name, price} = this.state
+    this.props.addProduct({name, price});
     this.setState({
       name: '', price: ''
     })

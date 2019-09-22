@@ -5,8 +5,25 @@ const DEFAULT_STATE = {
   error: null
 };
 
+function getLocalDetail(items) {
+  if (!items.length) {
+    return [];
+  }
+
+  const lastItem = items[items.length - 1];
+
+  return {
+    itemsLength: items.length,
+    lastPriceIdOfLastItem: lastItem.prices[lastItem.prices.length - 1].id
+  };
+}
+
 
 export default (state = DEFAULT_STATE, action) => {
+  const { itemsLength, lastPriceIdOfLastItem } = getLocalDetail(
+    action.items || state.products
+  );
+
   switch (action.type) {
     case LOAD_PRODUCTS:
       return {
@@ -17,7 +34,20 @@ export default (state = DEFAULT_STATE, action) => {
     case ADD_PRODUCT:
       return {
         ...state,
-        products: [...state.products, action.item]
+        products: [
+          ...state.products,
+          {
+            id: itemsLength + 1,
+            name: action.item.name,
+            prices: [
+              {
+                id: lastPriceIdOfLastItem + 1,
+                price: action.item.price,
+                date: Date.now()
+              }
+            ]
+          }
+        ]
       };
     case REMOVE_PRODUCT:
       return {

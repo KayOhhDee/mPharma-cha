@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { loadProducts, addProduct, editProduct, deleteProduct } from "../redux/actions/products";
+import { loadProducts, add, editProduct, deleteProduct } from "../redux/actions/products";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import DeleteModal from "./DeleteModal";
@@ -131,7 +131,7 @@ class Main extends Component {
         <AddForm
           modalState={this.state.addModal}
           toggle={this.addtoggle}
-          addProduct={this.props.addProduct}
+          addProduct={this.props.add}
         />
         {this.state.editModal && (
           <EditForm
@@ -161,5 +161,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loadProducts, addProduct, editProduct, deleteProduct }
+  { loadProducts, add, editProduct, deleteProduct }
 )(Main);
