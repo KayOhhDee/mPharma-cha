@@ -7,12 +7,12 @@ import DeleteModal from "./DeleteModal";
 
 class Main extends Component {
   state = {
-    addmodal: false,
-    editmodal: false,
-    deletemodal: false,
+    addModal: false,
+    editModal: false,
+    deleteModal: false,
     rowSelect: null,
     selectedRow: [],
-    disablebtn: true
+    disableBtn: true
   };
 
   componentDidMount() {
@@ -20,43 +20,28 @@ class Main extends Component {
   }
 
   getLatestDate(item) {
-    let pricesArr = item.prices.map(i => {
-      i.date = new Date(i.date);
-      return i;
-    });
-
-    let a;
-    do {
-      a = false;
-      for (let i = 0; i < pricesArr.length - 1; i++) {
-        if (pricesArr[i].date > pricesArr[i + 1].date) {
-          let init = pricesArr[i];
-          pricesArr[i] = pricesArr[i + 1];
-          pricesArr[i + 1] = init;
-          a = true;
-        }
-      }
-    } while (a);
-
+    var pricesArr = item.prices.sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
     return pricesArr[pricesArr.length - 1].price;
   }
 
   addtoggle = () => {
     this.setState(prevState => ({
-      addmodal: !prevState.addmodal
+      addModal: !prevState.addModal
     }));
   };
 
   edittoggle = () => {
     this.setState(prevState => ({
-      editmodal: !prevState.editmodal
+      editModal: !prevState.editModal
     }));
   };
 
-  deletetoggle = (condition) => {
+  deletetoggle = condition => {
     this.setState(prevState => ({
-      deletemodal: !prevState.deletemodal,
-      disablebtn: condition ? true : false
+      deleteModal: !prevState.deleteModal,
+      disableBtn: condition ? true : false
     }));
   };
 
@@ -66,12 +51,12 @@ class Main extends Component {
         this.setState({
           rowSelect: item.id - 1,
           selectedRow: item,
-          disablebtn: item.id - 1 === this.state.rowSelect
+          disableBtn: item.id - 1 === this.state.rowSelect
         });
       } else {
         this.setState({
           rowSelect: null,
-          disablebtn: true
+          disableBtn: true
         });
       }
     } else {
@@ -100,7 +85,7 @@ class Main extends Component {
     return (
       <div>
         <div className="head-text">
-          <p>{`${!this.state.disablebtn ? "1" : "No"} row selected`}</p>
+          <p>{`${!this.state.disableBtn ? "1" : "No"} row selected`}</p>
         </div>
         <div className="button-container">
           <div className="button-container-sub">
@@ -116,7 +101,7 @@ class Main extends Component {
             <button
               style={{ backgroundColor: "#ffbb33" }}
               className="button"
-              disabled={this.state.disablebtn}
+              disabled={this.state.disableBtn}
               onClick={this.edittoggle}
             >
               Edit
@@ -126,7 +111,7 @@ class Main extends Component {
             <button
               style={{ backgroundColor: "#FF3547" }}
               className="button"
-              disabled={this.state.disablebtn}
+              disabled={this.state.disableBtn}
               onClick={this.deletetoggle}
             >
               Delete
@@ -149,22 +134,22 @@ class Main extends Component {
           </div>
         </div>
         <AddForm
-          modalState={this.state.addmodal}
+          modalState={this.state.addModal}
           toggle={this.addtoggle}
           addProduct={this.props.addProduct}
         />
-        {this.state.editmodal && (
+        {this.state.editModal && (
           <EditForm
-            modalState={this.state.editmodal}
+            modalState={this.state.editModal}
             toggle={this.edittoggle}
             selectedRow={this.state.selectedRow}
             getLatestDate={this.getLatestDate}
             editProduct={this.props.editProduct}
           />
         )}
-        {this.state.deletemodal && (
+        {this.state.deleteModal && (
           <DeleteModal
-            modalState={this.state.deletemodal}
+            modalState={this.state.deleteModal}
             toggle={this.deletetoggle}
             selectedRow={this.state.selectedRow}
             deleteProduct={this.props.deleteProduct}
