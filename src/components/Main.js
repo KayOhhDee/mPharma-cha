@@ -11,7 +11,6 @@ class Main extends Component {
     editModal: false,
     deleteModal: false,
     rowSelect: null,
-    selectedRow: [],
     disableBtn: true
   };
 
@@ -47,18 +46,10 @@ class Main extends Component {
 
   handleSelect = (item, event) => {
     if (item && event.currentTarget) {
-      if (item.id - 1 !== this.state.rowSelect) {
         this.setState({
-          rowSelect: item.id - 1,
-          selectedRow: item,
-          disableBtn: item.id - 1 === this.state.rowSelect
+          rowSelected: item.id !== this.state.rowSelected ? item.id : null,
+          disableBtn: item.id === this.state.rowSelected
         });
-      } else {
-        this.setState({
-          rowSelect: null,
-          disableBtn: true
-        });
-      }
     } else {
       return;
     }
@@ -71,7 +62,7 @@ class Main extends Component {
           <tr
             style={{
               backgroundColor:
-                item.id - 1 === this.state.rowSelect ? "#a4d4ff" : ""
+                item.id === this.state.rowSelected ? "#a4d4ff" : ""
             }}
             onClick={this.handleSelect.bind(this, item)}
             key={item.id}
