@@ -54,14 +54,3 @@ export const loadProducts = () => async dispatch => {
     console.log(error);
   }
 };
-
-export const deleteProduct = id => dispatch => {
-  let items = JSON.parse(localStorage.getItem("products"));
-  let foundProduct = items[id - 1];
-
-  delete foundProduct.id;
-  items[id - 1] = foundProduct;
-  localStorage.setItem("products", JSON.stringify(items));
-
-  dispatch(remove(id));
-};

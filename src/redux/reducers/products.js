@@ -2,6 +2,7 @@ import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR, EDIT_PRODUCT } f
 
 const DEFAULT_STATE = {
   products: [],
+  historicalData: {},
   error: null
 };
 
@@ -70,9 +71,15 @@ export default (state = DEFAULT_STATE, action) => {
         })
       };
     case REMOVE_PRODUCT:
+      const deletedProduct = state.products.find(
+        product => product.id === action.id
+      );
       return {
-        ...state,
-        products: state.products.filter(product => product.id !== action.id)
+        products: state.products.filter(product => product.id !== action.id),
+        historicalData: {
+          ...state.historicalData,
+          [deletedProduct.id]: deletedProduct
+        }
       };
     case ADD_ERROR:
       return { ...state, error: action.error };
