@@ -22,27 +22,30 @@ export function remove(id) {
   }
 }
 
-export const addError = error => ({
-  type: ADD_ERROR,
-  error
-});
+export function addError(error){
+  return {
+    type: ADD_ERROR,
+    error
+  }
+}
 
-export const loadProducts = () => dispatch => {
-  let url = "https://www.mocky.io/v2/5c3e15e63500006e003e9795";
-  return new Promise((resolve, reject) => {
-    axios
-      .get(url)
-      .then(data => {
+const url = "http://www.mocky.io/v2/5c3e15e63500006e003e9795";
+
+export const loadProducts = () => async dispatch => {
+  try {
+    if (!localStorage.getItem("products")) {
+      await axios.get(url).then(data => {
         let res = data.data.products;
-        if (!localStorage.getItem("products"))
-          localStorage.setItem("products", JSON.stringify(res));
-        dispatch(products(JSON.parse(localStorage.getItem("products"))));
-      })
-      .catch(error => {
-        console.log(error);
-        return reject(error);
+        localStorage.setItem("products", JSON.stringify(res));
+        dispatch(products(res));
       });
-  });
+    } else {
+      dispatch(products(JSON.parse(localStorage.getItem("products"))));
+    }
+  } catch (error) {
+    dispatch(addError(error.message));
+    console.log(error);
+  }
 };
 
 export const addProduct = (name, price) => dispatch => {
