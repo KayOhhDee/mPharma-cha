@@ -1,4 +1,4 @@
-import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT } from "../actionTypes";
+import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR } from "../actionTypes";
 import axios from "axios";
 
 export function products(items) {
@@ -21,6 +21,11 @@ export function remove(id) {
     id
   }
 }
+
+export const addError = error => ({
+  type: ADD_ERROR,
+  error
+});
 
 export const loadProducts = () => dispatch => {
   let url = "https://www.mocky.io/v2/5c3e15e63500006e003e9795";

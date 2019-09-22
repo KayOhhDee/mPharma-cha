@@ -1,7 +1,8 @@
-import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT } from "../actionTypes";
+import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR } from "../actionTypes";
 
 const DEFAULT_STATE = {
-  products: []
+  products: [],
+  error: null
 };
 
 
@@ -19,6 +20,8 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         products: state.products.filter(product => product.id !== action.id)
       };
+    case ADD_ERROR:
+      return { ...state, error: action.error };
     default:
       return state;
   }
