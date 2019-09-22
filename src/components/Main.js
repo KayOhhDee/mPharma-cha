@@ -58,19 +58,17 @@ class Main extends Component {
   render() {
     const list = this.props.products.map(
       item =>
-        item.id && (
-          <tr
-            style={{
-              backgroundColor:
-                item.id === this.state.rowSelected ? "#a4d4ff" : ""
-            }}
-            onClick={this.handleSelect.bind(this, item)}
-            key={item.id}
-          >
-            <td>{item.name}</td>
-            <td>{this.getLatestDate(item)}</td>
-          </tr>
-        )
+        <tr
+          style={{
+            backgroundColor:
+              item.id === this.state.rowSelected ? "#a4d4ff" : ""
+          }}
+          onClick={this.handleSelect.bind(this, item)}
+          key={item.id}
+        >
+          <td>{item.name}</td>
+          <td>{this.getLatestDate(item)}</td>
+        </tr>
     );
 
     const selectedRow = this.props.products.find(
@@ -123,7 +121,17 @@ class Main extends Component {
                     <th>Price</th>
                   </tr>
                 </thead>
-                <tbody>{list}</tbody>
+                {this.props.error ? (
+                  <tbody>
+                    <tr>
+                      <td colspan="2" style={{ textAlign: "center" }}>
+                        Products not found
+                      </td>
+                    </tr>
+                  </tbody>
+                ) : (
+                  <tbody>{list}</tbody>
+                )}
               </table>
             </div>
           </div>
@@ -156,7 +164,8 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.products
+  products: state.products,
+  error: state.error
 });
 
 export default connect(
