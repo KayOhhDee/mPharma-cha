@@ -1,4 +1,4 @@
-import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR } from "../actionTypes";
+import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR, EDIT_PRODUCT } from "../actionTypes";
 import axios from "axios";
 
 export function products(items) {
@@ -11,6 +11,13 @@ export function products(items) {
 export function add(item) {
   return {
     type: ADD_PRODUCT,
+    item
+  };
+}
+
+export function edit(item) {
+  return {
+    type: EDIT_PRODUCT,
     item
   };
 }
@@ -46,25 +53,6 @@ export const loadProducts = () => async dispatch => {
     dispatch(addError(error.message));
     console.log(error);
   }
-};
-
-export const editProduct = (name, price, id) => dispatch => {
-  let items = JSON.parse(localStorage.getItem("products"));
-  let foundProduct = items[id - 1];
-  let priceId = [...items][items.length - 1].prices[
-    [...items][items.length - 1].prices.length - 1
-  ].id;
-
-  foundProduct.name = name;
-  foundProduct.prices = [
-    ...foundProduct.prices,
-    { id: ++priceId, price: price, date: Date.now() }
-  ];
-
-  items[id - 1] = foundProduct;
-  localStorage.setItem("products", JSON.stringify(items));
-
-  dispatch(products(JSON.parse(localStorage.getItem("products"))));
 };
 
 export const deleteProduct = id => dispatch => {

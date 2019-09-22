@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { loadProducts, add, editProduct, deleteProduct } from "../redux/actions/products";
+import { loadProducts, add, edit, deleteProduct } from "../redux/actions/products";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import DeleteModal from "./DeleteModal";
@@ -139,7 +139,7 @@ class Main extends Component {
             toggle={this.edittoggle}
             selectedRow={selectedRow}
             getLatestDate={this.getLatestDate}
-            editProduct={this.props.editProduct}
+            editProduct={this.props.edit}
           />
         )}
         {this.state.deleteModal && (
@@ -161,5 +161,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loadProducts, add, editProduct, deleteProduct }
+  { loadProducts, add, edit, deleteProduct }
 )(Main);

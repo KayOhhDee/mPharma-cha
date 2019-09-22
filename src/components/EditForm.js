@@ -30,7 +30,7 @@ class EditForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const {name, price} = this.state;
-    this.props.editProduct(name, price, this.props.selectedRow.id);
+    this.props.editProduct({ name, price, id: this.props.selectedRow.id });
     this.props.toggle();
   }
 

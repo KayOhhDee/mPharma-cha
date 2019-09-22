@@ -1,4 +1,4 @@
-import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR } from "../actionTypes";
+import { LOAD_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT, ADD_ERROR, EDIT_PRODUCT } from "../actionTypes";
 
 const DEFAULT_STATE = {
   products: [],
@@ -48,6 +48,26 @@ export default (state = DEFAULT_STATE, action) => {
             ]
           }
         ]
+      };
+    case EDIT_PRODUCT:
+      return {
+        ...state,
+        products: state.products.map(item => {
+          if (item.id === action.item.id) {
+            return Object.assign({}, item, {
+              name: action.item.name,
+              prices: [
+                ...item.prices,
+                {
+                  id: lastPriceIdOfLastItem + 1,
+                  price: action.item.price,
+                  date: Date.now()
+                }
+              ]
+            });
+          }
+          return item;
+        })
       };
     case REMOVE_PRODUCT:
       return {
