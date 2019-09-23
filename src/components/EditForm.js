@@ -63,6 +63,7 @@ class EditForm extends Component {
                   <label htmlFor="price1">Price:</label>
                   <input
                     type="number"
+                    step="any"
                     min="0"
                     id="price1"
                     name="price"
