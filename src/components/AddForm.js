@@ -51,7 +51,9 @@ class AddForm extends Component {
 
                   <label htmlFor="price1">Price:</label>
                   <input
-                    type="text"
+                    type="number"
+                    step="10"
+                    min="0"
                     id="price1"
                     name="price"
                     placeholder="Price.."
