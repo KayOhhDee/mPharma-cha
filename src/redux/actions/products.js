@@ -36,7 +36,7 @@ export function addError(error){
   }
 }
 
-const url = "http://www.mocky.io/v2/5c3e15e63500006e003e9795";
+const url = "https://www.mocky.io/v2/5c3e15e63500006e003e9795";
 
 export const loadProducts = () => async dispatch => {
   try {
